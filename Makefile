@@ -11,7 +11,7 @@ unit:
 benchmark:
 	go test -bench=. github.com/building-microservices-with-go/chapter11-services-search/handlers
 
-build_search:
+build_linux:
 	CGO_ENABLED=0 GOOS=linux go build -o ./search .
 
 build_docker:
