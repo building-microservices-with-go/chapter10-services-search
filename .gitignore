@@ -5,3 +5,4 @@ terraform.tfstate.backup
 .DS_Store
 .terraform
 search-Dockerfile.zip
+tags
