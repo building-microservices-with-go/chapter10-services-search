@@ -1,11 +1,11 @@
-application_name = "auth"
+application_name = "search"
 
-application_description = "Auth service"
+application_description = "Search service"
 
 application_environment = "dev"
 
 application_version = "1.1"
 
-docker_image = "buildingmicroserviceswithgo/auth"
+docker_image = "buildingmicroserviceswithgo/search"
 
 docker_tag = "latest"
