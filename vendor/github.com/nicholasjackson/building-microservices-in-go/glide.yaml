@@ -1,0 +1,61 @@
+package: github.com/nicholasjackson/building-microservices-in-go
+import:
+- package: github.com/golang/glog
+- package: github.com/golang/protobuf
+  subpackages:
+  - proto
+- package: github.com/koding/kite
+  subpackages:
+  - config
+  - protocol
+- package: github.com/micro/go-micro
+  subpackages:
+  - client
+  - client/rpc
+  - cmd
+  - server
+- package: github.com/nicholasjackson/bench
+  subpackages:
+  - output
+  - util
+- package: github.com/stretchr/testify
+  version: ^1.1.4
+  subpackages:
+  - mock
+- package: golang.org/x/net
+  subpackages:
+  - context
+- package: google.golang.org/grpc
+  version: ^1.0.3
+- package: labix.org/v2/mgo
+- package: github.com/eapache/go-resiliency
+  version: ^1.0.0
+  subpackages:
+  - deadline
+- package: gopkg.in/alexcesaro/statsd.v2
+  version: ^2.0.0
+- package: github.com/Sirupsen/logrus
+  version: ^0.11.0
+- package: github.com/bshuster-repo/logrus-logstash-hook
+- package: gopkg.in/go-playground/validator.v9
+  version: ^9.3.2
+- package: github.com/go-playground/universal-translator
+  version: ^0.14.0
+- package: github.com/dvyukov/go-fuzz
+  subpackages:
+  - go-fuzz
+  - go-fuzz-build
+- package: github.com/SermoDigital/jose
+  version: ^1.1.0
+  subpackages:
+  - crypto
+  - jws
+- package: github.com/hashicorp/go-memdb
+- package: github.com/nats-io/go-nats
+  version: ~1.2.2
+- package: github.com/nats-io/nats
+  version: ~1.2.2
+testImport:
+- package: github.com/DATA-DOG/godog
+  version: ^0.5.4
+- package: github.com/alecthomas/assert

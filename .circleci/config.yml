@@ -1,0 +1,69 @@
+version: 2
+jobs:
+  build:
+    docker:
+      # CircleCI Go images available at: https://hub.docker.com/r/circleci/golang/
+      - image: circleci/golang:1.8
+
+    working_directory: /go/src/github.com/building-microservices-with-go/chapter11-services-auth
+
+    environment:
+      TEST_RESULTS: /tmp/test-results
+
+    steps:
+      - checkout
+      - run: mkdir -p $TEST_RESULTS
+      - run: 
+          name: Install dependencies
+          command: |
+            go get github.com/Masterminds/glide
+            go get github.com/DATA-DOG/godog/cmd/godog
+            go get github.com/jstemmer/go-junit-report
+            glide up
+            curl -Ls -o /tmp/terraform.zip https://releases.hashicorp.com/terraform/0.9.8/terraform_0.9.8_linux_amd64.zip
+            sudo unzip /tmp/terraform.zip -d /usr/local/bin
+            curl -L https://github.com/docker/compose/releases/download/1.11.2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+            chmod +x /usr/local/bin/docker-compose
+      - run:
+          name: Build application for linux
+          command: make build_linux
+
+      - run: 
+          name: Run unit tests
+          command: |
+           trap "go-junit-report <${TEST_RESULTS}/go-test.out > ${TEST_RESULTS}/go-test-report.xml" EXIT
+           make test | tee ${TEST_RESULTS}/go-test.out
+      
+      - run: 
+          name: Run benchmark tests
+          command: make benchmark
+
+      - setup_remote_docker
+
+      - run: 
+          name: Run integration tests
+          command: DOCKER_IP=127.0.0.1 make integration
+
+      - run:
+          name: Build and push Docker image
+          command: |
+            make build_docker
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker push buildingmicroserviceswithgo/search:latest
+
+      - run:
+          name: Deploy to elastic beanstalk
+          command: |
+            cd terraform
+            terraform init
+            terraform plan
+            terraform apply
+
+      - run:
+          name: Smoke test
+          command: |
+            cd terraform
+            curl $(terraform output search_alb)/health
+
+      - store_test_results:
+          path: /tmp/test-results

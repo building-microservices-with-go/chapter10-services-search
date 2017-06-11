@@ -1,0 +1,18 @@
+version: '2'
+services:
+  mysql:
+    image: mysql
+    ports:
+      - 3306:3306
+    environment:
+      - "MYSQL_ROOT_PASSWORD=password"
+      - "MYSQL_DATABASE=kittens"
+  nats:
+    image: nats
+    ports:
+     - "4222:4222"
+     - "8222:8222"
+  auth:
+    image: buildingmicroserviceswithgo/auth
+    ports:
+      - 8080:8080
