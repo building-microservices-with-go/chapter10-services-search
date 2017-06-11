@@ -1,0 +1,6 @@
+FROM golang:1.8
+
+COPY . /go/src/github.com/building-microservices-with-go/chapter11-services-search
+RUN go get github.com/DATA-DOG/godog/cmd/godog
+
+
