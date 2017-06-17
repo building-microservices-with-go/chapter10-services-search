@@ -111,11 +111,20 @@ workflows:
     jobs:
       - build
       - unit_test
+          requires:
+            - build
       - benchmark
+          requires:
+            - build
       - staticcheck
-      - deploy:
+          requires:
+            - build
+      - integration_test
           requires:
             - build
             - unit_test
             - benchmark
             - staticcheck
+      - deploy:
+          requires:
+            - integration_test
