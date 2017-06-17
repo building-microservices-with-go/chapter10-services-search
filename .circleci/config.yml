@@ -1,14 +1,17 @@
-version: 2
-jobs:
-  build:
-    docker:
+defaults: &defaults
+  docker:
       # CircleCI Go images available at: https://hub.docker.com/r/circleci/golang/
       - image: circleci/golang:1.8
 
-    working_directory: /go/src/github.com/building-microservices-with-go/chapter11-services-search
+   working_directory: /go/src/github.com/building-microservices-with-go/chapter11-services-search
 
-    environment:
-      TEST_RESULTS: /tmp/test-results
+   environment:
+     TEST_RESULTS: /tmp/test-results
+
+version: 2
+jobs:
+  build:
+    <<: *defaults
 
     steps:
       - checkout
@@ -32,6 +35,8 @@ jobs:
           command: make build_linux
 
   unit_test:
+    <<: *defaults
+    
     steps:
       - run: 
           name: Run unit tests
@@ -43,12 +48,16 @@ jobs:
           path: /tmp/test-results
    
   benchmark:
+    <<: *defaults
+    
     steps:
       - run: 
           name: Run benchmark tests
           command: make benchmark
   
   staticcheck:
+    <<: *defaults
+    
     steps:
       - run: 
           name: Static language checks
@@ -59,6 +68,8 @@ jobs:
           command: make safesql
 
   integration_test:
+    <<: *defaults
+    
     steps:
       - setup_remote_docker
 
@@ -67,6 +78,8 @@ jobs:
           command: make circleintegration
   
   deploy:
+    <<: *defaults
+    
     steps:
       - setup_remote_docker
 
