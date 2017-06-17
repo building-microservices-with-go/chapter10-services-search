@@ -22,13 +22,7 @@ jobs:
           name: Install dependencies
           command: |
             go get github.com/Masterminds/glide
-            go get github.com/DATA-DOG/godog/cmd/godog
-            go get github.com/jstemmer/go-junit-report
-            go get honnef.co/go/tools/cmd/staticcheck
-            go get github.com/stripe/safesql
             glide up
-            curl -Ls -o /tmp/terraform.zip https://releases.hashicorp.com/terraform/0.9.8/terraform_0.9.8_linux_amd64.zip
-            sudo unzip /tmp/terraform.zip -d /usr/local/bin
       
       - run:
           name: Build application for linux
@@ -46,6 +40,10 @@ jobs:
     steps:
       - attach_workspace:
           at: /go/src/github.com/building-microservices-with-go
+      
+      - run: 
+          name: Install dependencies
+          command:  go get github.com/jstemmer/go-junit-report
           
       - run: 
           name: Run unit tests
@@ -73,6 +71,12 @@ jobs:
     steps:
       - attach_workspace:
           at: /go/src/github.com/building-microservices-with-go
+       
+      - run: 
+          name: Install dependencies
+          command: |
+            go get honnef.co/go/tools/cmd/staticcheck
+            go get github.com/stripe/safesql
           
       - run: 
           name: Static language checks
@@ -88,6 +92,10 @@ jobs:
     steps:
       - attach_workspace:
           at: /go/src/github.com/building-microservices-with-go
+         
+      - run:
+          name: Install dependencies
+          command: go get github.com/DATA-DOG/godog/cmd/godog
           
       - setup_remote_docker
 
@@ -103,6 +111,12 @@ jobs:
           at: /go/src/github.com/building-microservices-with-go
           
       - setup_remote_docker
+      
+      - run:
+          name: Install dependencies
+          command |
+            curl -Ls -o /tmp/terraform.zip https://releases.hashicorp.com/terraform/0.9.8/terraform_0.9.8_linux_amd64.zip
+            sudo unzip /tmp/terraform.zip -d /usr/local/bin
 
       - run:
           name: Build and push Docker image
