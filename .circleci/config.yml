@@ -110,16 +110,16 @@ workflows:
   build_test_and_deploy:
     jobs:
       - build
-      - unit_test
+      - unit_test:
           requires:
             - build
-      - benchmark
+      - benchmark:
           requires:
             - build
-      - staticcheck
+      - staticcheck:
           requires:
             - build
-      - integration_test
+      - integration_test:
           requires:
             - build
             - unit_test
