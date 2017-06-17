@@ -33,11 +33,20 @@ jobs:
       - run:
           name: Build application for linux
           command: make build_linux
+          
+      - persist_to_workspace:
+          root: /go/src/github.com/building-microservices-with-go/
+          paths:
+            - chapter11-services-search
+      
 
   unit_test:
     <<: *defaults
     
     steps:
+      - attach_workspace:
+          at: /go/src/github.com/building-microservices-with-go
+          
       - run: 
           name: Run unit tests
           command: |
@@ -51,6 +60,9 @@ jobs:
     <<: *defaults
     
     steps:
+      - attach_workspace:
+          at: /go/src/github.com/building-microservices-with-go
+          
       - run: 
           name: Run benchmark tests
           command: make benchmark
@@ -59,6 +71,9 @@ jobs:
     <<: *defaults
     
     steps:
+      - attach_workspace:
+          at: /go/src/github.com/building-microservices-with-go
+          
       - run: 
           name: Static language checks
           command: make staticcheck
@@ -71,6 +86,9 @@ jobs:
     <<: *defaults
     
     steps:
+      - attach_workspace:
+          at: /go/src/github.com/building-microservices-with-go
+          
       - setup_remote_docker
 
       - run: 
@@ -81,6 +99,9 @@ jobs:
     <<: *defaults
     
     steps:
+      - attach_workspace:
+          at: /go/src/github.com/building-microservices-with-go
+          
       - setup_remote_docker
 
       - run:
