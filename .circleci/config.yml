@@ -1,12 +1,12 @@
 defaults: &defaults
   docker:
-      # CircleCI Go images available at: https://hub.docker.com/r/circleci/golang/
-      - image: circleci/golang:1.8
+    # CircleCI Go images available at: https://hub.docker.com/r/circleci/golang/
+    - image: circleci/golang:1.8
 
-   working_directory: /go/src/github.com/building-microservices-with-go/chapter11-services-search
+  working_directory: /go/src/github.com/building-microservices-with-go/chapter11-services-search
 
-   environment:
-     TEST_RESULTS: /tmp/test-results
+  environment:
+    TEST_RESULTS: /tmp/test-results
 
 version: 2
 jobs:
