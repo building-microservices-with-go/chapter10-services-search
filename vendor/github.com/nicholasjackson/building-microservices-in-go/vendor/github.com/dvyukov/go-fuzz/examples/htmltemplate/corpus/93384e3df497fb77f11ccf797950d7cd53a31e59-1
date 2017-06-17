@@ -1,1 +1,0 @@
-{{range.C}}{{printf	"%87E" $}}{{printf	"%þ" $}}{{end}}

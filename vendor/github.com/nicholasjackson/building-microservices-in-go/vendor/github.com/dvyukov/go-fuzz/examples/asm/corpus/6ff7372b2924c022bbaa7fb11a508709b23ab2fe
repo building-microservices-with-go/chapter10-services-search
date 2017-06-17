@@ -1,2 +1,0 @@
-GLOBL	O(SB),$0
-GLOBL T(SB),$3

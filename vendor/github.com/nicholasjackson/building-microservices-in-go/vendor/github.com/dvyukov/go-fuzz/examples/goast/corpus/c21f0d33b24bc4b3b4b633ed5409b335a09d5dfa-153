@@ -1,8 +1,0 @@
-package t
-import("mime"
-a"bytes"
-"encoding/hex"
-"flag"
-"fmt"
-"bytes"
-"bytes")

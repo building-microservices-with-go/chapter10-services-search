@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/DataDog/datadog-go/statsd"
 	"github.com/building-microservices-with-go/chapter11-services-search/data"
 	"github.com/building-microservices-with-go/chapter11-services-search/handlers"
 	log "github.com/sirupsen/logrus"
@@ -23,8 +24,18 @@ func main() {
 		log.Fatal(err)
 	}
 
-	handler := handlers.Search{DataStore: store}
-	http.DefaultServeMux.HandleFunc("/", handler.ServeHTTP)
+	statsdClient, err := statsd.New("127.0.0.1:8125")
+	if err != nil {
+		log.Fatal(err)
+	}
+	// prefix every metric with the app name
+	statsdClient.Namespace = "chapter11.search."
+
+	search := handlers.NewSearch(store, statsdClient)
+	health := handlers.NewHealth(statsdClient)
+
+	http.DefaultServeMux.HandleFunc("/", search.Handle)
+	http.DefaultServeMux.HandleFunc("/health", health.Handle)
 
 	logger.WithField("service", "search").Infof("Starting server, listening on %s", address)
 	log.WithField("service", "search").Fatal(http.ListenAndServe(address, http.DefaultServeMux))

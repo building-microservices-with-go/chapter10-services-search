@@ -1,1 +1,0 @@
-{{printf "%.5" .0i 8i 8i 8i 8i 8i 8i 8i 8i 8i 8i 8i 8i 8i 8i 8i}}

@@ -1,1 +1,0 @@
-{{template	""}}{{template ""}}{{template ""}}{{template ""}}{{template ""}}{{template ""}}{{define ``}}{{range $}}{{end}}{{end}}

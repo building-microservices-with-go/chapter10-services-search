@@ -1,3 +1,0 @@
-COPY / HTTP/1.1
-Destination:p/calNost:9999/lit /litmukern.ipc.somaxconns/loc%dest/fookme HTTP/1.:
-

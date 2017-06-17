@@ -1,9 +1,0 @@
-package m
-import("flag"
-"fmt"
-"io/ioutil"
-"t"
-"g"
-"t"
-"s"
-"s")

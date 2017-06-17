@@ -1,5 +1,0 @@
-/{ :{(?i:{{[  t1[i&15" | relabel}}s | relabel}}
-					i++
-							for i := uint(0); i < 16; {
-				{{range $s := .Shift2}}
-					{{printf "a += (

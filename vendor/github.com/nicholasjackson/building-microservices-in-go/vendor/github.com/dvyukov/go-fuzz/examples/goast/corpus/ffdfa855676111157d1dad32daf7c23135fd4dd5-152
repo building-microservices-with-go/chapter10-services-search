@@ -1,9 +1,0 @@
-package m
-import("io"
-"time"
-a"bytes"
-"encoding/hex"
-"flag"
-"fmt"
-"bytes"
-"bytes")

@@ -7,8 +7,10 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/alecthomas/assert"
+	"github.com/DataDog/datadog-go/statsd"
 	"github.com/building-microservices-with-go/chapter11-services-search/data"
+	"github.com/building-microservices-with-go/chapter11-services-search/handlers"
+	"github.com/stretchr/testify/assert"
 )
 
 var mockStore *data.MockStore
@@ -16,7 +18,7 @@ var mockStore *data.MockStore
 func TestSearchHandlerReturnsBadRequestWhenNoSearchCriteriaIsSent(t *testing.T) {
 	r, rw, handler := setupTest(nil)
 
-	handler.ServeHTTP(rw, r)
+	handler.Handle(rw, r)
 
 	if rw.Code != http.StatusBadRequest {
 		t.Errorf("Expected BadRequest got %v", rw.Code)
@@ -26,7 +28,7 @@ func TestSearchHandlerReturnsBadRequestWhenNoSearchCriteriaIsSent(t *testing.T) 
 func TestSearchHandlerReturnsBadRequestWhenBlankSearchCriteriaIsSent(t *testing.T) {
 	r, rw, handler := setupTest(&searchRequest{})
 
-	handler.ServeHTTP(rw, r)
+	handler.Handle(rw, r)
 
 	if rw.Code != http.StatusBadRequest {
 		t.Errorf("Expected BadRequest got %v", rw.Code)
@@ -37,7 +39,7 @@ func TestSearchHandlerCallsDataStoreWithValidQuery(t *testing.T) {
 	r, rw, handler := setupTest(&searchRequest{Query: "Fat Freddy's Cat"})
 	mockStore.On("Search", "Fat Freddy's Cat").Return(make([]data.Kitten, 0))
 
-	handler.ServeHTTP(rw, r)
+	handler.Handle(rw, r)
 
 	mockStore.AssertExpectations(t)
 }
@@ -46,7 +48,7 @@ func TestSearchHandlerReturnsKittensWithValidQuery(t *testing.T) {
 	r, rw, handler := setupTest(&searchRequest{Query: "Fat Freddy's Cat"})
 	mockStore.On("Search", "Fat Freddy's Cat").Return(make([]data.Kitten, 1))
 
-	handler.ServeHTTP(rw, r)
+	handler.Handle(rw, r)
 
 	response := searchResponse{}
 	json.Unmarshal(rw.Body.Bytes(), &response)
@@ -55,12 +57,13 @@ func TestSearchHandlerReturnsKittensWithValidQuery(t *testing.T) {
 	assert.Equal(t, http.StatusOK, rw.Code)
 }
 
-func setupTest(d interface{}) (*http.Request, *httptest.ResponseRecorder, Search) {
+func setupTest(d interface{}) (*http.Request, *httptest.ResponseRecorder, *Search) {
 	mockStore = &data.MockStore{}
 
-	h := Search{
-		DataStore: mockStore,
-	}
+	statsdClient, _ := statsd.New("127.0.0.1:8125")
+
+	h := handlers.NewSearch(mockStore, statsdClient)
+
 	rw := httptest.NewRecorder()
 
 	if d == nil {

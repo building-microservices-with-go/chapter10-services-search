@@ -1,1 +1,0 @@
-### [View the slides](http://go-talks.appspot.com/github.com/dvyukov/go-fuzz/slides/go-fuzz.slide)

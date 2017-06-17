@@ -1,1 +1,0 @@
-{{with $}}{{printf "%q" $}}{{end}}

@@ -1,2 +1,0 @@
-package n
-type _ struct{T struct{int}}

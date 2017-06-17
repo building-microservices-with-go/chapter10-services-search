@@ -1,4 +1,0 @@
-GLOBL(SB),.8
-GLOBL(SB),.9,.8
-GLOBL(SB),.9,.8(
-GLOBL(SB),.9

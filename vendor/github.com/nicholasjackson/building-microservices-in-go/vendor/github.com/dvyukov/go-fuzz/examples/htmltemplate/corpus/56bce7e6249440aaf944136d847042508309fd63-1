@@ -1,1 +1,0 @@
-{{printf "%U%U" $ $}}{{printf "%U%U" $ $}}{{printf "%U" $}}

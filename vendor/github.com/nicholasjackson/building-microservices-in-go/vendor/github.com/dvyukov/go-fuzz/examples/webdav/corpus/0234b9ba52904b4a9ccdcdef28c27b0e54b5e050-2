@@ -1,3 +1,0 @@
-COPY /%de HTTP/1.1
-Destination:%de
-

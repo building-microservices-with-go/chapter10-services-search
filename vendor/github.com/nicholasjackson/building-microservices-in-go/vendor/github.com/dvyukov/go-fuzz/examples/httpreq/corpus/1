@@ -1,5 +1,0 @@
-GET /path/file.html HTTP/1.0
-From: "John Doe" <someuser@jmarshall.com>
-User-Agent: HTTPTool/1.0
-
-

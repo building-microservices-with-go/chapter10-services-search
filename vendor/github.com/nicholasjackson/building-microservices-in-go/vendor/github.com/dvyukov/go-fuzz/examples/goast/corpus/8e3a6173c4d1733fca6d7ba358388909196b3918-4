@@ -1,3 +1,0 @@
-package n
-func n(){print((chan
-int)(nil),1)}

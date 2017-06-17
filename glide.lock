@@ -1,6 +1,10 @@
-hash: 713e4b265f4bb1533b0d9598c863e638a2f5d75049fa72219a62e2d6f7c0673e
-updated: 2017-06-11T16:17:43.157196327+01:00
+hash: f82d2830a0c9988042468fdc9f351ae78669c6be5038b2b2f552468c41565469
+updated: 2017-06-11T19:09:59.526902486+01:00
 imports:
+- name: github.com/DataDog/datadog-go
+  version: 0ddda6bee21174ef6c4873647cb0d6ec9cba996f
+  subpackages:
+  - statsd
 - name: github.com/davecgh/go-spew
   version: 6d212800a42e8ab5c146b8ace3490ee17e5225f9
   subpackages:
@@ -38,16 +42,7 @@ testImports:
   - gherkin
 - name: github.com/mattn/go-isatty
   version: 57fdcb988a5c543893cc61bce354a6e24ab70022
-- name: github.com/nicholasjackson/building-microservices-in-go
-  version: b149654ddfc6de52bd7b457e1cfe8a5ed3804c3d
-  subpackages:
-  - chapter4/step5/data
 - name: github.com/sergi/go-diff
   version: feef008d51ad2b3778f85d387ccf91735543008d
   subpackages:
   - diffmatchpatch
-- name: labix.org/v2/mgo
-  version: "287"
-  subpackages:
-  - bson
-  - sasl

@@ -1,4 +1,0 @@
-package n
-func n(){print((chan int)(nil),[]int(nil),(map[string]int)(nil),g(c())()())
-(1)//
-}

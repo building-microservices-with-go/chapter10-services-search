@@ -1,3 +1,0 @@
-packageA
-var S interface{T;}
-type T interface{S}

@@ -1,3 +1,0 @@
-packageA
-var R interface{d()}
-type T interface{R;}

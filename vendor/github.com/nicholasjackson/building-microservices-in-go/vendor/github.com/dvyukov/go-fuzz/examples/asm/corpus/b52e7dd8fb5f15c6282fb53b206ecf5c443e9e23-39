@@ -1,3 +1,0 @@
-TEXT*T(SB),$8
-CALL$5
-CALL(PC),$8

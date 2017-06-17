@@ -1,3 +1,0 @@
-TEXT	C(SB),$3
-CALL SB,BP
-CALL SP,$8

@@ -1,1 +1,0 @@
-<a n='{{template ""}}{{template ""}}{{template ""}}{{template ""}}{{template "foo"""}}{{define ``}}{{end}}

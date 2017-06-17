@@ -1,7 +1,0 @@
-/{ :{(?i:{{( a|| relabel}}| relabel}}		i++
-					{{rotate}}
-				{{end}}
-			}
-	
-			// Round 3.
-			for i := uint(0

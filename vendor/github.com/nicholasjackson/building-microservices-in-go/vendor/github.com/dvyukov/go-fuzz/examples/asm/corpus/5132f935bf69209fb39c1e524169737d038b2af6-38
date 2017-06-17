@@ -1,3 +1,0 @@
-TEXT*T(SB),$8
-CALL$C(SB),$8
-CALL$C(SB),$8

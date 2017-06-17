@@ -1,7 +1,0 @@
-package n
-import("d"
-"e"
-"c")
-func s()[]e{//
-return[]MapType{T{}}}
-type MapType i

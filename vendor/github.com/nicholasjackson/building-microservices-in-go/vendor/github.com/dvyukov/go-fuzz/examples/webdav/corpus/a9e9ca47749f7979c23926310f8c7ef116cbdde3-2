@@ -1,9 +1,0 @@
-COPY / HTTP/1.1
-Destination:n:
-
-MOVE / HTTP/1.1
-Destination:p:
-
-MOVE / HTTP/1.1
-Destination:p:
-

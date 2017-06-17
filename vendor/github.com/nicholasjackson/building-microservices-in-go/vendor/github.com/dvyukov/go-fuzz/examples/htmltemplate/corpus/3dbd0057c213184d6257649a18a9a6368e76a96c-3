@@ -1,1 +1,0 @@
-{{range.C}}{{print|Q|Q|Q}}{{end}}

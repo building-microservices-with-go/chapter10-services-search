@@ -1,9 +1,0 @@
-/{{{{{{{{:\d(\d)}}| relabel}}
-				{{rotate}}
-		\se}}}}}}
-					{{printf "a = a<<%d | a>>(32-%d) + b" $s $s | relabel}}
-					i++
-					{{rotate}}
-				{{end}}
-			}
-	

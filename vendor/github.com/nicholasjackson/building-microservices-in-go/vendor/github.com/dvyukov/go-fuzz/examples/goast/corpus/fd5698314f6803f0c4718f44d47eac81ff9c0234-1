@@ -1,3 +1,0 @@
-package g
-import p"fmt"
-var _ p.Print

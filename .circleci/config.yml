@@ -19,6 +19,7 @@ jobs:
             go get github.com/Masterminds/glide
             go get github.com/DATA-DOG/godog/cmd/godog
             go get github.com/jstemmer/go-junit-report
+            go get honnef.co/go/tools/cmd/staticcheck
             glide up
             curl -Ls -o /tmp/terraform.zip https://releases.hashicorp.com/terraform/0.9.8/terraform_0.9.8_linux_amd64.zip
             sudo unzip /tmp/terraform.zip -d /usr/local/bin
@@ -36,6 +37,10 @@ jobs:
       - run: 
           name: Run benchmark tests
           command: make benchmark
+      
+      - run: 
+          name: Static language checks
+          command: make staticcheck
 
       - setup_remote_docker
 

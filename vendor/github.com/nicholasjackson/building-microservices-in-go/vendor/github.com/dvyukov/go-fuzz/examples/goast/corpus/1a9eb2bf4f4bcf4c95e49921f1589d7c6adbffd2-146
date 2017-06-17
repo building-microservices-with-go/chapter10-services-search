@@ -1,5 +1,0 @@
-package n
-import("unsafe"
-"mime"
-"testing"
-"time")

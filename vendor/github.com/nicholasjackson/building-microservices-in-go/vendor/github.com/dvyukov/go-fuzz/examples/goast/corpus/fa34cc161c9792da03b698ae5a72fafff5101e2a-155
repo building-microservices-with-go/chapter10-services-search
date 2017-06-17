@@ -1,6 +1,0 @@
-package m
-import("io/ioutil"
-"flag"
-"testing"
-"s"
-"s")

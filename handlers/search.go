@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/DataDog/datadog-go/statsd"
 	"github.com/building-microservices-with-go/chapter11-services-search/data"
 )
 
@@ -19,23 +20,35 @@ type searchResponse struct {
 
 // Search is an http handler for our microservice
 type Search struct {
-	DataStore data.Store
+	dataStore data.Store
+	statsd    *statsd.Client
 }
 
-func (s *Search) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
+func (s *Search) Handle(rw http.ResponseWriter, r *http.Request) {
 	decoder := json.NewDecoder(r.Body)
 	defer r.Body.Close()
 
 	request := &searchRequest{}
 	err := decoder.Decode(request)
 	if err != nil || len(request.Query) < 1 {
+		s.statsd.Incr("search.badrequest", nil, 1)
+
 		log.Println(err)
 		http.Error(rw, "Bad Request", http.StatusBadRequest)
 		return
 	}
 
-	kittens := s.DataStore.Search(request.Query)
+	kittens := s.dataStore.Search(request.Query)
 
 	encoder := json.NewEncoder(rw)
 	encoder.Encode(searchResponse{Kittens: kittens})
+
+	s.statsd.Incr("search.success", nil, 1)
+}
+
+func NewSearch(dataStore data.Store, statsd *statsd.Client) *Search {
+	return &Search{
+		dataStore: dataStore,
+		statsd:    statsd,
+	}
 }
