@@ -29,16 +29,23 @@ jobs:
           name: Build application for linux
           command: make build_linux
 
-      - run: 
-          name: Run unit tests
-          command: |
-           trap "go-junit-report <${TEST_RESULTS}/go-test.out > ${TEST_RESULTS}/go-test-report.xml" EXIT
-           make unit | tee ${TEST_RESULTS}/go-test.out
-      
+    unit_test:
+      steps:
+        - run: 
+            name: Run unit tests
+            command: |
+             trap "go-junit-report <${TEST_RESULTS}/go-test.out > ${TEST_RESULTS}/go-test-report.xml" EXIT
+             make unit | tee ${TEST_RESULTS}/go-test.out
+
+      - store_test_results:
+          path: /tmp/test-results
+     
+    benchmark:
       - run: 
           name: Run benchmark tests
           command: make benchmark
-      
+   
+    staticcheck:
       - run: 
           name: Static language checks
           command: make staticcheck
@@ -47,11 +54,15 @@ jobs:
           name: Safe SQL checks
           command: make safesql
 
+    integration_test:
       - setup_remote_docker
 
       - run: 
           name: Run integration tests
           command: make circleintegration
+    
+    deploy:
+      - setup_remote_docker
 
       - run:
           name: Build and push Docker image
@@ -60,7 +71,7 @@ jobs:
             docker login -u $DOCKER_USER -p $DOCKER_PASS
             docker push buildingmicroserviceswithgo/search:latest
 
-      - run:
+      - deploy:
           name: Deploy to elastic beanstalk
           command: |
             cd terraform
@@ -74,5 +85,18 @@ jobs:
             cd terraform
             curl $(terraform output search_alb)/health
 
-      - store_test_results:
-          path: /tmp/test-results
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - unit_test
+      - benchmark
+      - staticcheck
+      - deploy
+          requires:
+            - build
+            - unit_test
+            - benchmark
+            - staticcheck
