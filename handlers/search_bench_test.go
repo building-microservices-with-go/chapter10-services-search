@@ -7,7 +7,6 @@ import (
 
 	"github.com/DataDog/datadog-go/statsd"
 	"github.com/building-microservices-with-go/chapter11-services-search/data"
-	"github.com/building-microservices-with-go/chapter11-services-search/handlers"
 )
 
 func BenchmarkSearchHandler(b *testing.B) {
@@ -19,7 +18,7 @@ func BenchmarkSearchHandler(b *testing.B) {
 	})
 
 	statsdClient, _ := statsd.New("127.0.0.1:8125")
-	search := handlers.NewSearch(mockStore, statsdClient)
+	search := NewSearch(mockStore, statsdClient)
 
 	for i := 0; i < b.N; i++ {
 		r := httptest.NewRequest("POST", "/search", bytes.NewReader([]byte(`{"query":"Fat Freddy's Cat"}`)))

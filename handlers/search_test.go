@@ -9,7 +9,6 @@ import (
 
 	"github.com/DataDog/datadog-go/statsd"
 	"github.com/building-microservices-with-go/chapter11-services-search/data"
-	"github.com/building-microservices-with-go/chapter11-services-search/handlers"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -62,7 +61,7 @@ func setupTest(d interface{}) (*http.Request, *httptest.ResponseRecorder, *Searc
 
 	statsdClient, _ := statsd.New("127.0.0.1:8125")
 
-	h := handlers.NewSearch(mockStore, statsdClient)
+	h := NewSearch(mockStore, statsdClient)
 
 	rw := httptest.NewRecorder()
 
