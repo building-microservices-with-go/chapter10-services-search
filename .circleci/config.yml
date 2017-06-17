@@ -100,7 +100,7 @@ workflows:
       - unit_test
       - benchmark
       - staticcheck
-      - deploy
+      - deploy:
           requires:
             - build
             - unit_test
