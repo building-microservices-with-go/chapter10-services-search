@@ -124,14 +124,24 @@ jobs:
             make build_docker
             docker login -u $DOCKER_USER -p $DOCKER_PASS
             docker push buildingmicroserviceswithgo/search:latest
-
-      - deploy:
-          name: Deploy to elastic beanstalk
+            
+      - run:
+          name: Initialize Terraform
           command: |
             cd terraform
             terraform init
-            terraform plan
-            terraform apply
+            
+      - run:
+          name: Terraform Plan
+          command: |
+            cd terraform
+            terraform plan -out=search.terraform
+
+      - deploy:
+          name: Deploy to elastic beanstalk with Terraform
+          command: |
+            cd terraform
+            terraform apply search.terraform
 
       - run:
           name: Smoke test
