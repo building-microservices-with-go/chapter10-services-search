@@ -58,9 +58,6 @@ jobs:
     <<: *defaults
  
     steps:
-      - attach_workspace:
-          at: /go/src/github.com/building-microservices-with-go
-
       - restore_cache:
           key: {{ .Branch }}_benchmarks
 
