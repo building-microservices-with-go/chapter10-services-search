@@ -62,7 +62,8 @@ jobs:
           at: /go/src/github.com/building-microservices-with-go
 
       - restore_cache:
-          key: benchmarks_{{ .Branch }}
+          keys: 
+            - benchmarks_{{ .Branch }}
 
       - run:
           name: Install dependencies
@@ -81,51 +82,51 @@ jobs:
 
   staticcheck:
     <<: *defaults
-    
+
     steps:
       - attach_workspace:
           at: /go/src/github.com/building-microservices-with-go
-       
-      - run: 
+
+      - run:
           name: Install dependencies
           command: |
             go get honnef.co/go/tools/cmd/staticcheck
             go get github.com/stripe/safesql
-          
-      - run: 
+
+      - run:
           name: Static language checks
           command: make staticcheck
-      
-      - run: 
+
+      - run:
           name: Safe SQL checks
           command: make safesql
 
   integration_test:
     <<: *defaults
-    
+
     steps:
       - attach_workspace:
           at: /go/src/github.com/building-microservices-with-go
-         
+
       - run:
           name: Install dependencies
           command: go get github.com/DATA-DOG/godog/cmd/godog
-          
+
       - setup_remote_docker
 
       - run: 
           name: Run integration tests
           command: make circleintegration
-  
+ 
   deploy:
     <<: *defaults
-    
+
     steps:
       - attach_workspace:
           at: /go/src/github.com/building-microservices-with-go
 
       - setup_remote_docker
-      
+
       - run:
           name: Install dependencies
           command: |
@@ -138,13 +139,13 @@ jobs:
             make build_docker
             docker login -u $DOCKER_USER -p $DOCKER_PASS
             docker push buildingmicroserviceswithgo/search:latest
-            
+
       - run:
           name: Initialize Terraform
           command: |
             cd terraform
             terraform init
-            
+
       - run:
           name: Terraform Plan
           command: |
