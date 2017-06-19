@@ -56,7 +56,7 @@ jobs:
    
   benchmark:
     <<: *defaults
-    
+ 
     steps:
       - attach_workspace:
           at: /go/src/github.com/building-microservices-with-go
