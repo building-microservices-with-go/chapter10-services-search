@@ -60,10 +60,24 @@ jobs:
     steps:
       - attach_workspace:
           at: /go/src/github.com/building-microservices-with-go
+      - restore_cache:
+          keys:
+            - {{ .Branch }}-benchmarks
+
+      - run:
+          name: Install dependencies
+          command: |
+            git clone -b nic/tollerance_flag git@github.com:nicholasjackson/tools.git /go/src/golang.org/x/tools
+            go install golang.org/x/tools/cmd/benchcmp
           
       - run: 
           name: Run benchmark tests
           command: make benchmark
+
+      - save_cache:
+          key: {{ .Branch }}-benchmarks
+          paths:
+            - {{ .Branch }}_old_bench.txt
   
   staticcheck:
     <<: *defaults

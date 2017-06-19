@@ -8,7 +8,14 @@ safesql:
 	safesql github.com/building-microservices-with-go/chapter11-services-search
 
 benchmark:
-	go test -bench=. github.com/building-microservices-with-go/chapter11-services-search/handlers
+	go test -benchmem -benchtime=20s -bench=. github.com/building-microservices-with-go/chapter11-services-search/handlers | tee bench.txt
+	if [ -a ${BRANCH}_old_bench.txt ]; then \
+  	benchcmp -tolerance=5.0 ${BRANCH}_old_bench.txt bench.txt; \
+	fi;
+	
+	if [ $$? -eq 0 ]; then \
+		mv bench.txt ${BRANCH}_old_bench.txt; \
+	fi;
 
 build_linux:
 	CGO_ENABLED=0 GOOS=linux go build -o ./search .

@@ -6,3 +6,6 @@ terraform.tfstate.backup
 .terraform
 search-Dockerfile.zip
 tags
+
+bench.txt
+*_old_bench.txt
