@@ -68,7 +68,8 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            echo yes | git clone -b nic/tollerance_flag git@github.com:nicholasjackson/tools.git /go/src/golang.org/x/tools
+            ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+            git clone -b nic/tollerance_flag git@github.com:nicholasjackson/tools.git /go/src/golang.org/x/tools
             go install golang.org/x/tools/cmd/benchcmp
 
       - run:
