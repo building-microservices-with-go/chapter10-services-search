@@ -79,7 +79,7 @@ jobs:
           command: BRANCH=$CIRCLE_BRANCH make benchmark
 
       - save_cache:
-          key: benchmarks_{{ .Branch }}
+          key: benchmarks_{{ .Branch }}_{{ .epoch }}
           paths:
             - old_bench.txt
 
