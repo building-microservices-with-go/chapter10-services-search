@@ -63,7 +63,7 @@ jobs:
 
       - restore_cache:
           keys:
-            - {{ .Branch }}_benchmarks
+            - master_benchmarks
 
       - run:
           name: Install dependencies
@@ -73,7 +73,7 @@ jobs:
           
       - run: 
           name: Run benchmark tests
-          command: make benchmark
+          command: BRANCH={{ .Branch ]] make benchmark
 
       - save_cache:
           key: {{ .Branch }}_benchmarks
