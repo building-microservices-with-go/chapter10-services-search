@@ -78,7 +78,7 @@ jobs:
       - save_cache:
           key: benchmarks_{{ .Branch }}
           paths:
-            - {{ .Branch }}_old_bench.txt
+            - old_bench_{{ .Branch }}.txt
 
   staticcheck:
     <<: *defaults

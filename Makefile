@@ -9,12 +9,12 @@ safesql:
 
 benchmark:
 	go test -benchmem -benchtime=20s -bench=. github.com/building-microservices-with-go/chapter11-services-search/handlers | tee bench.txt
-	if [ -a ${BRANCH}_old_bench.txt ]; then \
-  	benchcmp -tolerance=5.0 ${BRANCH}_old_bench.txt bench.txt; \
+	if [ -a old_bench_${{BRANCH}}.txt ]; then \
+  	benchcmp -tolerance=5.0 old_bench_${{BRANCH}}.txt bench.txt; \
 	fi;
 	
 	if [ $$? -eq 0 ]; then \
-		mv bench.txt ${BRANCH}_old_bench.txt; \
+		mv bench.txt old_bench_${{BRANCH}}.txt; \
 	fi;
 
 build_linux:

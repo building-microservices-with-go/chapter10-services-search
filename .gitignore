@@ -8,4 +8,4 @@ search-Dockerfile.zip
 tags
 
 bench.txt
-*_old_bench.txt
+old_bench_*.txt
