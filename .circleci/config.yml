@@ -78,7 +78,7 @@ jobs:
           key: benchmarks_{{ .Branch }}
           paths:
             - {{ .Branch }}_old_bench.txt
-  
+
   staticcheck:
     <<: *defaults
     
