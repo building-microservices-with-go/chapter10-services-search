@@ -71,7 +71,7 @@ jobs:
             git clone -b nic/tollerance_flag git@github.com:nicholasjackson/tools.git /go/src/golang.org/x/tools
             go install golang.org/x/tools/cmd/benchcmp
 
-      - run: 
+      - run:
           name: Run benchmark tests
           command: BRANCH={{ .Branch }} make benchmark
 
