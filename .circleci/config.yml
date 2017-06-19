@@ -61,9 +61,6 @@ jobs:
       - attach_workspace:
           at: /go/src/github.com/building-microservices-with-go
 
-      - restore_cache:
-          keys:
-            - master_benchmarks
 
       - run:
           name: Install dependencies
