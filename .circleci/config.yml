@@ -60,9 +60,10 @@ jobs:
     steps:
       - attach_workspace:
           at: /go/src/github.com/building-microservices-with-go
+
       - restore_cache:
           keys:
-            - {{ .Branch }}-benchmarks
+            - {{ .Branch }}_benchmarks
 
       - run:
           name: Install dependencies
@@ -75,7 +76,7 @@ jobs:
           command: make benchmark
 
       - save_cache:
-          key: {{ .Branch }}-benchmarks
+          key: {{ .Branch }}_benchmarks
           paths:
             - {{ .Branch }}_old_bench.txt
   
