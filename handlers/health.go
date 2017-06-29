@@ -3,6 +3,7 @@ package handlers
 import (
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/DataDog/datadog-go/statsd"
 )
@@ -12,8 +13,11 @@ type Health struct {
 }
 
 func (h *Health) Handle(rw http.ResponseWriter, r *http.Request) {
-	h.statsd.Incr("health.success", nil, 1)
+	defer func(startTime time.Time) {
+		h.statsd.Timing("health.timing", time.Now().Sub(startTime), nil, 1)
+	}(time.Now())
 
+	h.statsd.Incr("health.success", nil, 1)
 	fmt.Fprintln(rw, "OK")
 }
 

@@ -104,6 +104,17 @@ jobs:
           name: Safe SQL checks
           command: make safesql
 
+  sourceclear:
+    <<: *defaults
+    
+    steps:
+      - attach_workspace:
+        at: /go/src/github.com/building-microservices-with-go
+
+      -run:
+        name: Sourceclear Security Scan
+        command: curl -sSL https://download.sourceclear.com/ci.sh | sh
+
   integration_test:
     <<: *defaults
 
@@ -182,6 +193,9 @@ workflows:
       - staticcheck:
           requires:
             - build
+      - sourceclear:
+          requires:
+            - staticcheck
       - integration_test:
           requires:
             - build

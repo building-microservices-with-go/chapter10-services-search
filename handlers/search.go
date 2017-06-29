@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/DataDog/datadog-go/statsd"
 	"github.com/building-microservices-with-go/chapter11-services-search/data"
@@ -25,6 +26,10 @@ type Search struct {
 }
 
 func (s *Search) Handle(rw http.ResponseWriter, r *http.Request) {
+	defer func(startTime time.Time) {
+		s.statsd.Timing("search.timing.total", time.Now().Sub(startTime), nil, 1)
+	}(time.Now())
+
 	decoder := json.NewDecoder(r.Body)
 	defer r.Body.Close()
 
@@ -38,7 +43,9 @@ func (s *Search) Handle(rw http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	startTime := time.Now()
 	kittens := s.dataStore.Search(request.Query)
+	s.statsd.Timing("search.timing.data", time.Now().Sub(startTime), nil, 1)
 
 	encoder := json.NewEncoder(rw)
 	encoder.Encode(searchResponse{Kittens: kittens})
