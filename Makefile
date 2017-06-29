@@ -2,7 +2,7 @@ unit:
 	go test -v --race $(shell go list ./... | grep -v /vendor/)
 
 staticcheck:
-	staticcheck $(shell go list ./... | grep -v /vendor/)
+	megacheck $(shell go list ./... | grep -v /vendor/)
 
 safesql:
 	safesql github.com/building-microservices-with-go/chapter11-services-search
