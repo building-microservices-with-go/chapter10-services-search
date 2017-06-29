@@ -111,7 +111,7 @@ jobs:
       - attach_workspace:
         at: /go/src/github.com/building-microservices-with-go
 
-      -run:
+      - run:
         name: Sourceclear Security Scan
         command: curl -sSL https://download.sourceclear.com/ci.sh | sh
 
