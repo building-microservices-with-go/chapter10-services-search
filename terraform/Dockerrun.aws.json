@@ -1,10 +1,10 @@
 {
   "AWSEBDockerrunVersion": "1",
   "Image": {
-    "Name": "${docker_image}:${docker_tag}",
+    "Name": "buildingmicroserviceswithgo/search:latest",
     "Update": "true"
   },
   "Ports": [
-    { "ContainerPort":"8082" }
+    { "ContainerPort":"8080" }
   ]
 }

@@ -169,4 +169,10 @@ resource "aws_elastic_beanstalk_environment" "default" {
     name      = "API_KEY"
     value     = "${var.datadog_api_key}"
   }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:application:environment"
+    name      = "MYSQL_CONNECTION"
+    value     = "${aws_rds_cluster.default.master_username}:${aws_rds_cluster.default.master_password}@tcp(${aws_rds_cluster_instance.master.endpoint}:3306)/${aws_rds_cluster.default.database_name}"
+  }
 }

@@ -1,3 +1,7 @@
+variable "namespace" {
+  description = "Namespace or prefix for created resources"
+}
+
 variable "application_name" {
   description = "Name of your application"
 }
@@ -37,3 +41,7 @@ variable "elb_scheme" {
 }
 
 variable "datadog_api_key" {}
+
+variable "private_key" {
+  description = "Path to private key"
+}

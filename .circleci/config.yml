@@ -205,3 +205,6 @@ workflows:
       - deploy:
           requires:
             - integration_test
+          filters:
+            branches:
+              only: master
