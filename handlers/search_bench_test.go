@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/DataDog/datadog-go/statsd"
-	"github.com/building-microservices-with-go/chapter11-services-search/data"
+	"github.com/building-microservices-with-go/chapter10-services-search/data"
 )
 
 func BenchmarkSearchHandler(b *testing.B) {

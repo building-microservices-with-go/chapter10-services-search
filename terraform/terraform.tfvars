@@ -1,4 +1,4 @@
-namespace = "chapter11-bog"
+namespace = "chapter10-bog"
 
 application_name = "search"
 

@@ -5,8 +5,8 @@ import (
 	"os"
 
 	"github.com/DataDog/datadog-go/statsd"
-	"github.com/building-microservices-with-go/chapter11-services-search/data"
-	"github.com/building-microservices-with-go/chapter11-services-search/handlers"
+	"github.com/building-microservices-with-go/chapter10-services-search/data"
+	"github.com/building-microservices-with-go/chapter10-services-search/handlers"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -29,7 +29,7 @@ func main() {
 		log.Fatal(err)
 	}
 	// prefix every metric with the app name
-	statsdClient.Namespace = "chapter11.search."
+	statsdClient.Namespace = "chapter10.search."
 
 	search := handlers.NewSearch(store, statsdClient)
 	health := handlers.NewHealth(statsdClient)
